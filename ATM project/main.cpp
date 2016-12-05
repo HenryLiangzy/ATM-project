@@ -21,8 +21,24 @@ typedef struct {
 }bankCount;
 //define the structe bankCount
 
+int accountLogin()
+{
+	//here is for the login function
+	//login function will return the account ID back to the main function
+}
+
+void function_list(int id)
+{
+	//here is for the function_list
+	//input the function number and jump to that funcion
+}
 
 void main()
 {
-
+	int id;
+	id = accountLogin();
+	while (id != 0)
+	{
+		function_list(id);
+	}
 }
