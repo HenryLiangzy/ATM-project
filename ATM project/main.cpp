@@ -61,7 +61,8 @@ void function_list(int id)
 {
 	//here is for the function_list
 	//input the function number and jump to that funcion
-	int choose;
+	int *choose;
+	choose = (int *)malloc(sizeof(int));
 	do
 	{
 		printf("\t\t|$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$|\n");
@@ -81,9 +82,9 @@ void function_list(int id)
 		printf("\n\n\n\n");
 
 		printf("Please Input Number:");
-		scanf("%d", &choose);
+		scanf_s("%d", choose, 2);
 
-		switch (choose)
+		switch (*choose)
 		{
 		case 1:check(id);
 			break;
@@ -93,7 +94,8 @@ void function_list(int id)
 			break;
 		case 4:transfer(id);
 			break;
-		case 5:quit();
+		case 5:free(choose);
+				quit();
 			break;
 		default:printf("Please input the number 1~5\n");
 			break;
