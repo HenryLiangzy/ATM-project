@@ -40,7 +40,7 @@ void save(int id)
 
 void withdraw(int id)
 {
-
+	//
 }
 
 void transfer(int id)
@@ -108,5 +108,9 @@ void main()
 	while (id != 0)
 	{
 		function_list(id);
+	}
+	if (id == 0)
+	{
+		quit();
 	}
 }
