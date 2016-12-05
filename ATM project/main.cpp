@@ -19,7 +19,7 @@ typedef struct {
 	float balance;
 	char level;
 }bankCount;
-//定义结构体bankCount
+//define the structe bankCount
 
 
 void main()
