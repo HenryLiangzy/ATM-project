@@ -1,4 +1,6 @@
 #pragma once
+
+
 typedef struct custinfo
 {
 	char account[4];
@@ -8,6 +10,7 @@ typedef struct custinfo
 	char level;
 	struct custinfo *next;
 }custinfo;
+
 
 
 //used for delete the linklist
@@ -24,7 +27,7 @@ void listDelete(custinfo *head)
 	//printf("list delete complete\n");
 }
 
-
+//used for check the n of the linklist
 custinfo *searchByindex(custinfo *head, int n)
 {
 	custinfo *current;

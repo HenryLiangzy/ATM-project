@@ -18,6 +18,7 @@ int login(custinfo *head)
 {
 	//here is for the login function
 	//login function will return the account ID back to the main function
+	return 1602;
 }
 
 void check(int id, custinfo *head)
@@ -38,12 +39,13 @@ void withdraw(int id, custinfo *head)
 
 void transfer(int id, custinfo *head)
 {
-	//
+	//this function used to transfer function
 }
 
 void quit(custinfo *head)
 {
 	//quit function used to end the program
+
 	listDelete(head);
 	exit(0);
 
@@ -77,7 +79,7 @@ void function_list(int id, custinfo *head)
 		printf("\n\n\n\n");
 
 		printf("Please Input Number:");
-		scanf_s("%d", choose, 2);
+		scanf("%d", choose);
 
 		switch (*choose)
 		{
@@ -102,15 +104,16 @@ void main()
 {
 	int id;
 	FILE *fp1;
-	struct custinfo *node1, *node2, *head;
-	struct custinfo temp;
+	custinfo *node1, *node2, *head;
+	custinfo temp;
 	fp1 = fopen("account.txt", "r");
 	if (fp1 != NULL)
 	{
 		node1 = (struct custinfo *)malloc(sizeof(struct custinfo));
+		head = (custinfo *)malloc(sizeof(custinfo));
 		fscanf(fp1, "%s %s %s %f %c", node1->account, node1->name, node1->password, &node1->balance, &node1->level);
 		head = node1;
-		printf("%s %s %s %f %c\n", node1->account, node1->name, node1->password, node1->balance, node1->level);
+		//printf("%s %s %s %f %c\n", node1->account, node1->name, node1->password, node1->balance, node1->level);
 		while (fscanf(fp1, "%s %s %s %f %c", temp.account, temp.name, temp.password, &temp.balance, &temp.level) != EOF)
 		{
 			node2 = (struct custinfo *)malloc(sizeof(struct custinfo));
@@ -120,24 +123,24 @@ void main()
 			strcpy(node2->password, temp.password);
 			node2->balance = temp.balance;
 			node2->level = temp.level;
-			printf("%s %s %s %f %c\n", node2->account, node2->name, node2->password, node2->balance, node2->level);
+			//printf("%s %s %s %f %c\n", node2->account, node2->name, node2->password, node2->balance, node2->level);
 			node1->next = node2;
 			node1 = node2;
 		}
 		node2 = NULL;
 		fclose(fp1);
+		id = login(head);
+		while (id != 0)
+		{
+			function_list(id, head);
+		}
+		if (id == 0)
+		{
+			quit(head);
+		}
 	}
 	else
 	{
-		printf("file not exist\n");
-	}
-	id = login(head);
-	while (id != 0)
-	{
-		function_list(id, head);
-	}
-	if (id == 0)
-	{
-		quit(head);
+		printf("ERROR: file not exist\n");
 	}
 }
