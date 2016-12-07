@@ -42,6 +42,9 @@ void transfer(int id, custinfo *head)
 	//this function used to transfer function
 }
 
+
+//quit function: write the txt and also exit the program, close the point and file
+//想要退出程序，直接执行quit()
 void quit(custinfo *head)
 {
 	//quit function used to end the program
@@ -51,7 +54,7 @@ void quit(custinfo *head)
 	current = (custinfo *)malloc(sizeof(custinfo));
 	next = (custinfo *)malloc(sizeof(custinfo));
 	current = head;
-	while (current != NULL)
+	while (current != NULL) //uesd loop to write the file
 	{
 		next = current->next;
 		fprintf(fp, "%s %s %s %f %c\n", current->account, current->name, current->password, current->balance, current->level);
@@ -59,7 +62,7 @@ void quit(custinfo *head)
 	}
 	free(current);
 	free(next);
-	listDelete(head);
+	listDelete(head); //delete the linklist
 	exit(0);
 
 }
@@ -94,7 +97,7 @@ void function_list(int id, custinfo *head)
 		printf("Please Input Number:");
 		scanf("%d", choose);
 
-		switch (*choose)
+		switch (*choose) //每一个分函数都可以得到主函数的head链表数据提供
 		{
 		case 1:check(id, head);
 			break;
@@ -113,6 +116,9 @@ void function_list(int id, custinfo *head)
 	} while (1);
 }
 
+
+
+//主函数内嵌account.txt文件读写，需要数据的时候只要调用head链表即可
 void main()
 {
 	int id;
@@ -121,7 +127,7 @@ void main()
 	struct custinfo temp;
 	fp1 = fopen("account.txt", "r");
 	node1 = (struct custinfo *)malloc(sizeof(struct custinfo));
-	head = node1;
+	head = node1; //把head指向node1， 创建head的链表，head就是主函数提供调用的链表
 	if (fp1 != NULL)
 	{
 		fscanf(fp1, "%s%s%s%f%*c%c", node1->account, node1->name, node1->password, &node1->balance, &node1->level);
@@ -131,15 +137,16 @@ void main()
 			*node2 = temp;
 			node1->next = node2;
 			node1 = node2;
-			node2->next = NULL;
+			node2->next = NULL;//keep each of the node for a whole node
 		}
 		fclose(fp1);
-		id = login(head);
+		id = login(head); //send the head linklist to login function
+		//主函数需要login函数返回当前登陆账户的account，如果登陆不成功请返回0
 		while (id != 0)
 		{
-			function_list(id, head);
+			function_list(id, head); //send the head linklist to function_list
 		}
-		if (id == 0)
+		if (id == 0) //if the login is not pass, run quit function
 		{
 			quit(head);
 		}
