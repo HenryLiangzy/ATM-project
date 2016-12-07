@@ -13,31 +13,32 @@ Last modification: Dec 7, 2016
 #include <string.h>
 #include "linklist.h"
 
-
-int login(custinfo *head)
+char *login(custinfo *head)
 {
 	//here is for the login function
 	//login function will return the account ID back to the main function
-	return 1602;
+	char account[4];
+	strcpy(account, "1602");
+	return account;
 }
 
-void check(int id, custinfo *head)
+void check(char account[], custinfo *head)
 {
 	//
 }
 
-void save(int id, custinfo *head)
+void save(char account[], custinfo *head)
 {
 	//
 }
 
 
-void withdraw(int id, custinfo *head)
+void withdraw(char account[], custinfo *head)
 {
 	//
 }
 
-void transfer(int id, custinfo *head)
+void transfer(char account[], custinfo *head)
 {
 	//this function used to transfer function
 }
@@ -70,7 +71,7 @@ void quit(custinfo *head)
 
 
 
-void function_list(int id, custinfo *head)
+void function_list(char account[], custinfo *head)
 {
 	//here is for the function_list
 	//input the function number and jump to that funcion
@@ -99,13 +100,13 @@ void function_list(int id, custinfo *head)
 
 		switch (*choose) //每一个分函数都可以得到主函数的head链表数据提供
 		{
-		case 1:check(id, head);
+		case 1:check(account, head);
 			break;
-		case 2:save(id, head);
+		case 2:save(account, head);
 			break;
-		case 3:withdraw(id, head);
+		case 3:withdraw(account, head);
 			break;
-		case 4:transfer(id, head);
+		case 4:transfer(account, head);
 			break;
 		case 5:free(choose);
 				quit(head);
@@ -121,7 +122,7 @@ void function_list(int id, custinfo *head)
 //主函数内嵌account.txt文件读写，需要数据的时候只要调用head链表即可
 void main()
 {
-	int id;
+	char account[5];
 	FILE *fp1;
 	struct custinfo *node1, *node2, *head;
 	struct custinfo temp;
@@ -140,13 +141,13 @@ void main()
 			node2->next = NULL;//keep each of the node for a whole node
 		}
 		fclose(fp1);
-		id = login(head); //send the head linklist to login function
+		strcpy(account, login(head)); //send the head linklist to login function
 		//主函数需要login函数返回当前登陆账户的account，如果登陆不成功请返回0
-		while (id != 0)
+		while (strcmp(account, "0000") != 0)
 		{
-			function_list(id, head); //send the head linklist to function_list
+			function_list(account, head); //send the head linklist to function_list
 		}
-		if (id == 0) //if the login is not pass, run quit function
+		if (strcmp(account, "0000") == 0) //if the login is not pass, run quit function
 		{
 			quit(head);
 		}
