@@ -45,7 +45,20 @@ void transfer(int id, custinfo *head)
 void quit(custinfo *head)
 {
 	//quit function used to end the program
-
+	FILE *fp;
+	custinfo *current, *next;
+	fp = fopen("account_.txt", "w");
+	current = (custinfo *)malloc(sizeof(custinfo));
+	next = (custinfo *)malloc(sizeof(custinfo));
+	current = head;
+	while (current != NULL)
+	{
+		next = current->next;
+		fprintf(fp, "%s %s %s %f %c\n", current->account, current->name, current->password, current->balance, current->level);
+		current = next;
+	}
+	free(current);
+	free(next);
 	listDelete(head);
 	exit(0);
 
@@ -104,30 +117,25 @@ void main()
 {
 	int id;
 	FILE *fp1;
-	custinfo *node1, *node2, *head;
-	custinfo temp;
+	struct custinfo *node1, *node2, *head;
+	struct custinfo temp;
 	fp1 = fopen("account.txt", "r");
 	if (fp1 != NULL)
 	{
 		node1 = (struct custinfo *)malloc(sizeof(struct custinfo));
-		head = (custinfo *)malloc(sizeof(custinfo));
-		fscanf(fp1, "%s %s %s %f %c", node1->account, node1->name, node1->password, &node1->balance, &node1->level);
+		//head = (struct custinfo *)malloc(sizeof(struct custinfo));
+		fscanf(fp1, "%s%s%s%f%*c%c", node1->account, node1->name, node1->password, &node1->balance, &node1->level);
 		head = node1;
 		//printf("%s %s %s %f %c\n", node1->account, node1->name, node1->password, node1->balance, node1->level);
-		while (fscanf(fp1, "%s %s %s %f %c", temp.account, temp.name, temp.password, &temp.balance, &temp.level) != EOF)
+		while (fscanf(fp1, "%s%s%s%f%*c%c", temp.account, temp.name, temp.password, &temp.balance, &temp.level) != EOF)
 		{
 			node2 = (struct custinfo *)malloc(sizeof(struct custinfo));
-			//fscanf(fp1, "%d %s %d %f %c", &node2->id, node2->name, &node2->password, &node2->balance, &node2->level);
-			strcpy(node2->account, temp.account);
-			strcpy(node2->name, temp.name);
-			strcpy(node2->password, temp.password);
-			node2->balance = temp.balance;
-			node2->level = temp.level;
+			*node2 = temp;
 			//printf("%s %s %s %f %c\n", node2->account, node2->name, node2->password, node2->balance, node2->level);
 			node1->next = node2;
 			node1 = node2;
+			node2->next = NULL;
 		}
-		node2 = NULL;
 		fclose(fp1);
 		id = login(head);
 		while (id != 0)

@@ -3,9 +3,9 @@
 
 typedef struct custinfo
 {
-	char account[4];
+	char account[5];
 	char name[16];
-	char password[6];
+	char password[7];
 	float balance;
 	char level;
 	struct custinfo *next;
