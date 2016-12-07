@@ -10,10 +10,11 @@ typedef struct custinfo
 	char level;
 	struct custinfo *next;
 }custinfo;
-
+//定义struct 注意string的位数
 
 
 //used for delete the linklist
+//这个函数用来删除链表
 void listDelete(custinfo *head)
 {
 	custinfo *next, *current;
@@ -27,7 +28,11 @@ void listDelete(custinfo *head)
 	//printf("list delete complete\n");
 }
 
+
+
+
 //used for check the n of the linklist
+//这个函数通过输入链表头和目的链表的编号返回目的链表
 custinfo *searchByindex(custinfo *head, int n)
 {
 	custinfo *current;
@@ -41,6 +46,11 @@ custinfo *searchByindex(custinfo *head, int n)
 	return current;
 }
 
+
+
+
+//This function used for print the linklist(only in this project)
+//这个函数用来打印链表（仅限ATMproject的链表）
 void printLinklist(custinfo *head)
 {
 	custinfo *current, *next;
@@ -57,7 +67,11 @@ void printLinklist(custinfo *head)
 	free(next);
 }
 
+
+
+
 //used for search the account
+//这个函数用来查找匹配的account的链表，输入链表头和account(string)，返回目的链表(point)
 custinfo *searchByaccount(custinfo *head, char account[])
 {
 	custinfo *current;
@@ -72,11 +86,12 @@ custinfo *searchByaccount(custinfo *head, char account[])
 
 
 //used for search the name
-custinfo *searchByname(custinfo *head, char account[])
+//这个函数用来查找匹配name的链表，输入head和name(string)， 返回目的链表(point)
+custinfo *searchByname(custinfo *head, char name[])
 {
 	custinfo *current;
 	current = head;
-	while ((current != NULL) && (strcmp(current->name, account) != 0))
+	while ((current != NULL) && (strcmp(current->name, name) != 0))
 	{
 		current = current->next;
 	}

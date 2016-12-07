@@ -18,8 +18,8 @@ char *login(custinfo *head)
 	//here is for the login function
 	//login function will return the account ID back to the main function
 	char account[4];
-	strcpy(account, "1602");
-	return account;
+	strcpy(account, "1602"); //here add 1602 just for test
+	return account;// 登录不成功的时候返回0000的string， 正常登录的话返回account的string
 }
 
 void check(char account[], custinfo *head)
@@ -51,7 +51,8 @@ void quit(custinfo *head)
 	//quit function used to end the program
 	FILE *fp;
 	custinfo *current, *next;
-	fp = fopen("account_.txt", "w");
+	fp = fopen("account_.txt", "w"); //when the program is finish, w will change to w+, file name also change to account.txt
+	//这里测试所以用account_.txt 正式的时候改成account.txt w 也会改成 w+
 	current = (custinfo *)malloc(sizeof(custinfo));
 	next = (custinfo *)malloc(sizeof(custinfo));
 	current = head;
@@ -142,7 +143,7 @@ void main()
 		}
 		fclose(fp1);
 		strcpy(account, login(head)); //send the head linklist to login function
-		//主函数需要login函数返回当前登陆账户的account，如果登陆不成功请返回0
+		//主函数需要login函数返回(string)当前登陆账户的account，如果登陆不成功请返回string "0000"
 		while (strcmp(account, "0000") != 0)
 		{
 			function_list(account, head); //send the head linklist to function_list
