@@ -2,7 +2,7 @@
 C programming file for ATM project
 By Henry Liang    ID:1530003030
 Test on Visual Studio Community 2015, Windows 10 v1607
-Last modification: Dec 5, 2016
+Last modification: Dec 7, 2016
 */
 
 #define _CRT_SECURE_NO_DEPRECATE
@@ -120,18 +120,15 @@ void main()
 	struct custinfo *node1, *node2, *head;
 	struct custinfo temp;
 	fp1 = fopen("account.txt", "r");
+	node1 = (struct custinfo *)malloc(sizeof(struct custinfo));
+	head = node1;
 	if (fp1 != NULL)
 	{
-		node1 = (struct custinfo *)malloc(sizeof(struct custinfo));
-		//head = (struct custinfo *)malloc(sizeof(struct custinfo));
 		fscanf(fp1, "%s%s%s%f%*c%c", node1->account, node1->name, node1->password, &node1->balance, &node1->level);
-		head = node1;
-		//printf("%s %s %s %f %c\n", node1->account, node1->name, node1->password, node1->balance, node1->level);
 		while (fscanf(fp1, "%s%s%s%f%*c%c", temp.account, temp.name, temp.password, &temp.balance, &temp.level) != EOF)
 		{
 			node2 = (struct custinfo *)malloc(sizeof(struct custinfo));
 			*node2 = temp;
-			//printf("%s %s %s %f %c\n", node2->account, node2->name, node2->password, node2->balance, node2->level);
 			node1->next = node2;
 			node1 = node2;
 			node2->next = NULL;
